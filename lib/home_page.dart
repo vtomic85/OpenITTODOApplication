@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_tracker/model/todo_item.dart';
+import 'package:todo_tracker/const/datasource.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,11 +7,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<TodoItem> todoItems = [
-    TodoItem(0, 'First', true),
-    TodoItem(1, 'Second', false),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,27 +24,89 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: SafeArea(
-        child: ListView.builder(
-          itemCount: todoItems.length,
-          itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(
-                todoItems[index].description,
-                style: TextStyle(
-                  color: todoItems[index].done ? Colors.black : Colors.white,
-                  decoration: todoItems[index].done
-                      ? TextDecoration.lineThrough
-                      : null,
-                ),
-              ),
-              tileColor: todoItems[index].done ? Colors.grey : Colors.blue,
-              onTap: () {
-                setState(() {
-                  todoItems[index].done = !todoItems[index].done;
-                });
+        child: Column(
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/addTodo');
               },
-            );
-          },
+              child: Text('Add TODO item'),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: Datasource.todoItems.length,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          title: Text(
+                            Datasource.todoItems[index].description,
+                            style: TextStyle(
+                              color: Datasource.todoItems[index].done
+                                  ? Colors.black
+                                  : Colors.white,
+                              decoration: Datasource.todoItems[index].done
+                                  ? TextDecoration.lineThrough
+                                  : null,
+                            ),
+                          ),
+                          tileColor: Datasource.todoItems[index].done
+                              ? Colors.grey
+                              : Colors.blue,
+                          onTap: () {
+                            setState(() {
+                              Datasource.todoItems[index].done =
+                                  !Datasource.todoItems[index].done;
+                            });
+                          },
+                          trailing: IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.red,
+                            ),
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return new AlertDialog(
+                                    title: new Text(
+                                      'Really delete this item?',
+                                    ),
+                                    actions: <Widget>[
+                                      new TextButton(
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(),
+                                          child: new Text('Cancel')),
+                                      new TextButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              Datasource.todoItems
+                                                  .removeAt(index);
+                                            });
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: new Text(
+                                            'Delete',
+                                            style: TextStyle(
+                                              color: Colors.red,
+                                            ),
+                                          )),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
