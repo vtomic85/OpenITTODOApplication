@@ -9,7 +9,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<TodoItem> todoItems = [
     TodoItem('Kupi mleko', false),
-    TodoItem('Prosetaj psa', false)
+    TodoItem('Prošetaj psa', false),
+    TodoItem('Prošetaj mačku', false),
+    TodoItem('Seti se da zapravo nemaš mačku', false),
+    TodoItem('Vrati se kući', false),
   ];
   TextEditingController newTodoController = TextEditingController();
 
