@@ -1,8 +1,4 @@
-# todo_tracker
-
-My TODOs
-
-## About
+# My TODOs
 
 This application was made as a simple demo project for OpenIT conference, in order to present some of basic Flutter features. is a starting point for a Flutter application.
 
