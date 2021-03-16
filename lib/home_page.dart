@@ -100,15 +100,19 @@ class _HomePageState extends State<HomePage> {
                             todoItems[index].description,
                             style: TextStyle(
                               color: todoItems[index].done
-                                  ? Colors.black
-                                  : Colors.white,
+                                  ? Colors.white
+                                  : Colors.blue,
                               decoration: todoItems[index].done
                                   ? TextDecoration.lineThrough
                                   : null,
+                              fontWeight: todoItems[index].done
+                                  ? FontWeight.normal
+                                  : FontWeight.bold,
                             ),
                           ),
-                          tileColor:
-                              todoItems[index].done ? Colors.grey : Colors.blue,
+                          tileColor: todoItems[index].done
+                              ? Colors.grey
+                              : Colors.white,
                           onTap: () {
                             setState(() {
                               todoItems[index].done = !todoItems[index].done;
