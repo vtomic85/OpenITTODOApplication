@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_tracker/about_page.dart';
-import 'package:todo_tracker/add_todo_page.dart';
 import 'package:todo_tracker/home_page.dart';
 
 void main() {
@@ -13,7 +12,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {
         '/': (context) => HomePage(),
-        '/addTodo': (context) => AddTodoPage(),
         '/about': (context) => AboutPage(),
       },
       initialRoute: '/',

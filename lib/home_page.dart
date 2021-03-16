@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_tracker/const/datasource.dart';
+import 'package:todo_tracker/model/todo_item.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,6 +7,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<TodoItem> todoItems = [
+    TodoItem('Kupi mleko', false),
+    TodoItem('Prosetaj psa', false)
+  ];
+  TextEditingController newTodoController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,15 +32,64 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         child: Column(
           children: [
+            TextField(
+              controller: newTodoController,
+              onChanged: (newText) {
+                setState(() {});
+              },
+            ),
+            ElevatedButton(
+              onPressed: newTodoController.text.isEmpty
+                  ? null
+                  : () {
+                      setState(() {
+                        todoItems.add(TodoItem(newTodoController.text, false));
+                        newTodoController.text = '';
+                      });
+                    },
+              child: Text('Add TODO item'),
+            ),
             ElevatedButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/addTodo');
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return new AlertDialog(
+                      title: new Text(
+                        'Really delete all items?',
+                      ),
+                      actions: <Widget>[
+                        new TextButton(
+                            onPressed: () => Navigator.of(context).pop(),
+                            child: new Text('Cancel')),
+                        new TextButton(
+                            onPressed: () {
+                              setState(() {
+                                todoItems.clear();
+                              });
+                              Navigator.of(context).pop();
+                            },
+                            child: new Text(
+                              'Yes, delete all',
+                              style: TextStyle(
+                                color: Colors.red,
+                              ),
+                            )),
+                      ],
+                    );
+                  },
+                );
               },
-              child: Text('Add TODO item'),
+              child: Text(
+                'Delete all',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: Datasource.todoItems.length,
+                itemCount: todoItems.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0),
@@ -42,23 +97,21 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         ListTile(
                           title: Text(
-                            Datasource.todoItems[index].description,
+                            todoItems[index].description,
                             style: TextStyle(
-                              color: Datasource.todoItems[index].done
+                              color: todoItems[index].done
                                   ? Colors.black
                                   : Colors.white,
-                              decoration: Datasource.todoItems[index].done
+                              decoration: todoItems[index].done
                                   ? TextDecoration.lineThrough
                                   : null,
                             ),
                           ),
-                          tileColor: Datasource.todoItems[index].done
-                              ? Colors.grey
-                              : Colors.blue,
+                          tileColor:
+                              todoItems[index].done ? Colors.grey : Colors.blue,
                           onTap: () {
                             setState(() {
-                              Datasource.todoItems[index].done =
-                                  !Datasource.todoItems[index].done;
+                              todoItems[index].done = !todoItems[index].done;
                             });
                           },
                           trailing: IconButton(
@@ -82,8 +135,7 @@ class _HomePageState extends State<HomePage> {
                                       new TextButton(
                                           onPressed: () {
                                             setState(() {
-                                              Datasource.todoItems
-                                                  .removeAt(index);
+                                              todoItems.removeAt(index);
                                             });
                                             Navigator.of(context).pop();
                                           },

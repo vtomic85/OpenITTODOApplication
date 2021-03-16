@@ -20,9 +20,10 @@ class AboutPage extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Column(
+          child: ListView(
             children: [
               buildAboutRow('Author:', 'Vladimir Tomic', ''),
+              buildAboutRow('Company:', 'Zühlke Engineering', 'https://www.zuehlke.com'),
               buildAboutRow('Year of production:', '2021', ''),
               buildAboutRow('Application version:', '1.0', ''),
               buildAboutRow(
