@@ -9,10 +9,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<TodoItem> todoItems = [
     TodoItem('Kupi mleko', false),
-    TodoItem('Prošetaj psa', false),
-    TodoItem('Prošetaj mačku', false),
-    TodoItem('Seti se da zapravo nemaš mačku', false),
-    TodoItem('Vrati se kući', false),
+    TodoItem('Prosetaj psa', false),
+    TodoItem('Prosetaj macku', false),
+    TodoItem('Seti se da zapravo nemaš macku', false),
+    TodoItem('Vrati se kuci', false),
   ];
   TextEditingController newTodoController = TextEditingController();
 
@@ -45,10 +45,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: newTodoController.text.isEmpty
                   ? null
                   : () {
-                      setState(() {
-                        todoItems.add(TodoItem(newTodoController.text, false));
-                        newTodoController.text = '';
-                      });
+                      insertItem();
                     },
               child: Text('Add TODO item'),
             ),
@@ -67,9 +64,7 @@ class _HomePageState extends State<HomePage> {
                             child: new Text('Cancel')),
                         new TextButton(
                             onPressed: () {
-                              setState(() {
-                                todoItems.clear();
-                              });
+                              deleteAllItems();
                               Navigator.of(context).pop();
                             },
                             child: new Text(
@@ -117,9 +112,7 @@ class _HomePageState extends State<HomePage> {
                               ? Colors.grey
                               : Colors.white,
                           onTap: () {
-                            setState(() {
-                              todoItems[index].done = !todoItems[index].done;
-                            });
+                            updateItem(index);
                           },
                           trailing: IconButton(
                             icon: Icon(
@@ -141,9 +134,7 @@ class _HomePageState extends State<HomePage> {
                                           child: new Text('Cancel')),
                                       new TextButton(
                                           onPressed: () {
-                                            setState(() {
-                                              todoItems.removeAt(index);
-                                            });
+                                            deleteSingleItem(index);
                                             Navigator.of(context).pop();
                                           },
                                           child: new Text(
@@ -169,5 +160,30 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void updateItem(int index) {
+    setState(() {
+      todoItems[index].done = !todoItems[index].done;
+    });
+  }
+
+  void deleteSingleItem(int index) {
+    setState(() {
+      todoItems.removeAt(index);
+    });
+  }
+
+  void deleteAllItems() {
+    setState(() {
+      todoItems.clear();
+    });
+  }
+
+  void insertItem() {
+    setState(() {
+      todoItems.add(TodoItem(newTodoController.text, false));
+      newTodoController.text = '';
+    });
   }
 }
