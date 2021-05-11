@@ -9,10 +9,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   List<TodoItem> todoItems = [
     TodoItem('Kupi mleko', false),
-    TodoItem('Prosetaj psa', false),
-    TodoItem('Prosetaj macku', false),
-    TodoItem('Seti se da zapravo nemaš macku', false),
-    TodoItem('Vrati se kuci', false),
+    TodoItem('Prošetaj psa', false),
+    TodoItem('Prošetaj mačku', false),
+    TodoItem('Seti se da zapravo nemaš mačku', false),
+    TodoItem('Vrati se kući', false),
   ];
   TextEditingController newTodoController = TextEditingController();
 
@@ -91,66 +91,62 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0),
-                    child: Column(
-                      children: [
-                        ListTile(
-                          title: Text(
-                            todoItems[index].description,
-                            style: TextStyle(
-                              color: todoItems[index].done
-                                  ? Colors.white
-                                  : Colors.blue,
-                              decoration: todoItems[index].done
-                                  ? TextDecoration.lineThrough
-                                  : null,
-                              fontWeight: todoItems[index].done
-                                  ? FontWeight.normal
-                                  : FontWeight.bold,
-                            ),
-                          ),
-                          tileColor: todoItems[index].done
-                              ? Colors.grey
-                              : Colors.white,
-                          onTap: () {
-                            updateItem(index);
-                          },
-                          trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
-                            onPressed: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return new AlertDialog(
-                                    title: new Text(
-                                      'Really delete this item?',
-                                    ),
-                                    actions: <Widget>[
-                                      new TextButton(
-                                          onPressed: () =>
-                                              Navigator.of(context).pop(),
-                                          child: new Text('Cancel')),
-                                      new TextButton(
-                                          onPressed: () {
-                                            deleteSingleItem(index);
-                                            Navigator.of(context).pop();
-                                          },
-                                          child: new Text(
-                                            'Delete',
-                                            style: TextStyle(
-                                              color: Colors.red,
-                                            ),
-                                          )),
-                                    ],
-                                  );
-                                },
+                    child: ListTile(
+                      title: Text(
+                        todoItems[index].description,
+                        style: TextStyle(
+                          color: todoItems[index].done
+                              ? Colors.white
+                              : Colors.blue,
+                          decoration: todoItems[index].done
+                              ? TextDecoration.lineThrough
+                              : null,
+                          fontWeight: todoItems[index].done
+                              ? FontWeight.normal
+                              : FontWeight.bold,
+                        ),
+                      ),
+                      tileColor: todoItems[index].done
+                          ? Colors.grey
+                          : Colors.white,
+                      onTap: () {
+                        updateItem(index);
+                      },
+                      trailing: IconButton(
+                        icon: Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        onPressed: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return new AlertDialog(
+                                title: new Text(
+                                  'Really delete this item?',
+                                ),
+                                actions: <Widget>[
+                                  new TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(),
+                                      child: new Text('Cancel')),
+                                  new TextButton(
+                                      onPressed: () {
+                                        deleteSingleItem(index);
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: new Text(
+                                        'Delete',
+                                        style: TextStyle(
+                                          color: Colors.red,
+                                        ),
+                                      )),
+                                ],
                               );
                             },
-                          ),
-                        ),
-                      ],
+                          );
+                        },
+                      ),
                     ),
                   );
                 },
