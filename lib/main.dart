@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:todo_tracker/about_page.dart';
-import 'package:todo_tracker/home_page.dart';
+import 'package:provider/provider.dart';
+import 'package:todo_tracker/app/about/about_screen.dart';
+import 'package:todo_tracker/app/home/home_screen.dart';
+import 'package:todo_tracker/app/home/home_view_model.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(create: (context) => HomeViewModel(),child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       routes: {
-        '/': (context) => HomePage(),
+        '/': (context) => HomeScreen(),
         '/about': (context) => AboutPage(),
       },
       initialRoute: '/',
