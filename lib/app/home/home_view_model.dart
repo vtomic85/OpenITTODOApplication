@@ -1,38 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:todo_tracker/model/todo_item.dart';
+import 'package:todo_tracker/data/model/todo_item.dart';
+import 'package:todo_tracker/data/todo_items_repository.dart';
 
 class HomeViewModel extends ChangeNotifier {
-  List<TodoItem> todoItems = [
-    TodoItem('Kupi mleko', false),
-    TodoItem('Prošetaj psa', false),
-    TodoItem('Prošetaj mačku', false),
-    TodoItem('Seti se da zapravo nemaš mačku', false),
-    TodoItem('Vrati se kući', false),
-  ];
+  final todoRepository = TodoItemsRepository();
+
+  List<TodoItem> todoItems = [];
 
   final TextEditingController newTodoController;
 
   HomeViewModel() : newTodoController = TextEditingController() {
-    newTodoController.addListener(() {notifyListeners();});
+    newTodoController.addListener(() {
+      notifyListeners();
+    });
+
+    todoRepository.init().then((_) => todoRepository.todoItems.listen((todos) {
+          todoItems = todos;
+          notifyListeners();
+        }));
   }
 
   void updateItem(int index) {
-    todoItems[index].done = !todoItems[index].done;
+    //todoItems[index].done = !todoItems[index].done;
     notifyListeners();
   }
 
   void deleteSingleItem(int index) {
-    todoItems.removeAt(index);
+    // todoItems.removeAt(index);
     notifyListeners();
   }
 
   void deleteAllItems() {
-    todoItems.clear();
+    todoRepository.deleteAll();
     notifyListeners();
   }
 
   void insertItem(String description) {
-    todoItems.add(TodoItem(description, false));
+    todoRepository.upsertTodo(TodoItem(description, false));
     notifyListeners();
   }
 }

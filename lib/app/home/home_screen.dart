@@ -32,7 +32,10 @@ class HomeScreen extends StatelessWidget {
               builder: (context, viewModel, child) => ElevatedButton(
                 onPressed: viewModel.newTodoController.text.isEmpty
                     ? null
-                    : () => viewModel.insertItem(viewModel.newTodoController.text),
+                    : () {
+                        viewModel.insertItem(viewModel.newTodoController.text);
+                        viewModel.newTodoController.text = '';
+                      },
                 child: Text('Add TODO item'),
               ),
             ),
