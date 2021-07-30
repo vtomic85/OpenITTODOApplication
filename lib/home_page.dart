@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_tracker/model/todo_item.dart';
+import 'package:todo_tracker/styles/styles.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -69,9 +70,7 @@ class _HomePageState extends State<HomePage> {
                             },
                             child: new Text(
                               'Yes, delete all',
-                              style: TextStyle(
-                                color: Colors.red,
-                              ),
+                              style: Styles.RED_BUTTON,
                             )),
                       ],
                     );
@@ -80,9 +79,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text(
                 'Delete all',
-                style: TextStyle(
-                  color: Colors.white,
-                ),
+                style: Styles.BUTTON,
               ),
             ),
             Expanded(
@@ -106,9 +103,8 @@ class _HomePageState extends State<HomePage> {
                               : FontWeight.bold,
                         ),
                       ),
-                      tileColor: todoItems[index].done
-                          ? Colors.grey
-                          : Colors.white,
+                      tileColor:
+                          todoItems[index].done ? Colors.grey : Colors.white,
                       onTap: () {
                         updateItem(index);
                       },
@@ -137,9 +133,7 @@ class _HomePageState extends State<HomePage> {
                                       },
                                       child: new Text(
                                         'Delete',
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                        ),
+                                        style: Styles.RED_BUTTON,
                                       )),
                                 ],
                               );
