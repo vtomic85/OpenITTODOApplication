@@ -62,16 +62,16 @@ class SembastStore {
     });
   }
   
-  Future<void> deleteSingleItem(String id) async {
-    // TODO
-    final db = await _databaseConnection.db;
-    return db.transaction((transaction) async {
-      final key = id;
-      final storeRecord = _store.record(key);
-      final result = await storeRecord.delete() as Map;
-      return Map.from(result);
-    });
-  }
+  // Future<void> deleteSingleItem(String id) async {
+  //   // TODO
+  //   final db = await _databaseConnection.db;
+  //   return db.transaction((transaction) async {
+  //     final key = id;
+  //     final storeRecord = _store.record(key);
+  //     final result = await storeRecord.delete() as Map;
+  //     return Map.from(result);
+  //   });
+  // }
 
   Future<int> deleteAll() async {
     final db = await _databaseConnection.db;
