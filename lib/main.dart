@@ -10,7 +10,7 @@ void main() {
     MultiProvider(
       providers: [
         Provider<HomeViewModel>(create: (_) => HomeViewModel()),
-        Provider<ThemeManager>(create: (_) => ThemeManager()),
+        Provider<ThemeViewModel>(create: (_) => ThemeViewModel()),
       ],
       child: MyApp(),
     ),

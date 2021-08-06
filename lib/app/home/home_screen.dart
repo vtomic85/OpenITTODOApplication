@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_tracker/app/home/home_view_model.dart';
 import 'package:todo_tracker/app/home/widgets/confirmation_dialog.dart';
 import 'package:todo_tracker/app/home/widgets/todo_item.dart';
+import 'package:todo_tracker/shared/theme_manager.dart';
 import 'package:todo_tracker/styles/styles.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -14,11 +15,26 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('My TODOs'),
-            IconButton(
-                icon: Icon(Icons.help),
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/about');
-                }),
+            Row(
+              children: [
+                Consumer<ThemeViewModel>(
+                  builder: (context, themeManager, _) => IconButton(
+                    icon: Icon(Icons.nightlight_round),
+                    onPressed: () {
+                      themeManager.getTheme() == themeManager.lightTheme
+                          ? themeManager.setDarkMode()
+                          : themeManager.setLightMode();
+                    },
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.help),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/about');
+                  },
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -26,7 +42,8 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             Consumer<HomeViewModel>(
-              builder: (context, viewModel, child) => TextField(controller: viewModel.newTodoController),
+              builder: (context, viewModel, child) =>
+                  TextField(controller: viewModel.newTodoController),
             ),
             Consumer<HomeViewModel>(
               builder: (context, viewModel, child) => ElevatedButton(
@@ -43,7 +60,9 @@ class HomeScreen extends StatelessWidget {
               builder: (context, viewModel, child) => ElevatedButton(
                 onPressed: () {
                   showConfirmationDialog(
-                      'Are you sure you want to delete all items', viewModel.deleteAllItems, context);
+                      'Are you sure you want to delete all items',
+                      viewModel.deleteAllItems,
+                      context);
                 },
                 child: Text(
                   'Delete all',
@@ -56,7 +75,9 @@ class HomeScreen extends StatelessWidget {
                 builder: (context, viewModel, child) => ListView.builder(
                   itemCount: viewModel.todoItems.length,
                   itemBuilder: (context, index) {
-                    return Padding(padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0), child: TodoItem(index));
+                    return Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0),
+                        child: TodoItem(index));
                   },
                 ),
               ),

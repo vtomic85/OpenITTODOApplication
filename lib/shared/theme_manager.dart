@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todo_tracker/shared/storage_manager.dart';
 
-class ThemeManager extends ChangeNotifier {
+class ThemeViewModel extends ChangeNotifier {
   final darkTheme = ThemeData(
     primarySwatch: Colors.grey,
     primaryColor: Colors.black,
@@ -25,7 +25,7 @@ class ThemeManager extends ChangeNotifier {
   late ThemeData _themeData;
   ThemeData getTheme() => _themeData;
 
-  ThemeManager() {
+  ThemeViewModel() {
     StorageManager.readData('themeMode').then((value) {
       print('value read from storage: ' + value.toString());
       var themeMode = value ?? 'light';
