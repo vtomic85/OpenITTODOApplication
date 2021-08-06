@@ -39,7 +39,9 @@ class ThemeViewModel extends ChangeNotifier {
     });
   }
 
+
   void setDarkMode() async {
+    print('Dark');
     _themeData = darkTheme;
     StorageManager.saveData('themeMode', 'dark');
     notifyListeners();

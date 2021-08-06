@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todo_tracker/styles/styles.dart';
 
 import '../home_view_model.dart';
 
@@ -21,7 +20,6 @@ class TodoItem extends StatelessWidget {
             fontWeight: viewModel.todoItems[_index].done ? FontWeight.normal : FontWeight.bold,
           ),
         ),
-        tileColor: viewModel.todoItems[_index].done ? Colors.grey : Colors.white,
         onTap: () {
           viewModel.updateItem(_index);
         },
@@ -47,7 +45,6 @@ class TodoItem extends StatelessWidget {
                         },
                         child: new Text(
                           'Delete',
-                          style: Styles.RED_BUTTON,
                         )),
                   ],
                 );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:todo_tracker/styles/styles.dart';
 
 showConfirmationDialog(String title, Function onConfirm, BuildContext context) {
   showDialog(
@@ -18,7 +17,6 @@ showConfirmationDialog(String title, Function onConfirm, BuildContext context) {
               },
               child: new Text(
                 'Confirm',
-                style: Styles.RED_BUTTON,
               )),
         ],
       );

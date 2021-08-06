@@ -3,8 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:todo_tracker/app/home/home_view_model.dart';
 import 'package:todo_tracker/app/home/widgets/confirmation_dialog.dart';
 import 'package:todo_tracker/app/home/widgets/todo_item.dart';
-import 'package:todo_tracker/shared/theme_manager.dart';
-import 'package:todo_tracker/styles/styles.dart';
+import 'package:todo_tracker/theme/theme_view_model.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -66,7 +65,6 @@ class HomeScreen extends StatelessWidget {
                 },
                 child: Text(
                   'Delete all',
-                  style: Styles.BUTTON,
                 ),
               ),
             ),

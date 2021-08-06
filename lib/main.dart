@@ -3,14 +3,14 @@ import 'package:provider/provider.dart';
 import 'package:todo_tracker/app/about/about_screen.dart';
 import 'package:todo_tracker/app/home/home_screen.dart';
 import 'package:todo_tracker/app/home/home_view_model.dart';
-import 'package:todo_tracker/shared/theme_manager.dart';
+import 'package:todo_tracker/theme/theme_view_model.dart';
 
 void main() {
   runApp(
     MultiProvider(
       providers: [
-        Provider<HomeViewModel>(create: (_) => HomeViewModel()),
-        Provider<ThemeViewModel>(create: (_) => ThemeViewModel()),
+        ChangeNotifierProvider<HomeViewModel>(create: (_) => HomeViewModel()),
+        ChangeNotifierProvider<ThemeViewModel>(create: (_) => ThemeViewModel()),
       ],
       child: MyApp(),
     ),
@@ -20,12 +20,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        '/': (context) => HomeScreen(),
-        '/about': (context) => AboutPage(),
-      },
-      initialRoute: '/',
+    return Consumer<ThemeViewModel>(
+      builder: (context, themeManager, _) => MaterialApp(
+        theme: themeManager.getTheme(),
+        routes: {
+          '/': (context) => HomeScreen(),
+          '/about': (context) => AboutPage(),
+        },
+        initialRoute: '/',
+      ),
     );
   }
 }
