@@ -23,6 +23,7 @@ class ThemeViewModel extends ChangeNotifier {
   );
 
   late ThemeData _themeData;
+
   ThemeData getTheme() => _themeData;
 
   ThemeViewModel() {
@@ -39,9 +40,7 @@ class ThemeViewModel extends ChangeNotifier {
     });
   }
 
-
   void setDarkMode() async {
-    print('Dark');
     _themeData = darkTheme;
     StorageManager.saveData('themeMode', 'dark');
     notifyListeners();
@@ -51,5 +50,13 @@ class ThemeViewModel extends ChangeNotifier {
     _themeData = lightTheme;
     StorageManager.saveData('themeMode', 'light');
     notifyListeners();
+  }
+
+  void toggleMode() {
+    if (_themeData == darkTheme) {
+      setLightMode();
+    } else {
+      setDarkMode();
+    }
   }
 }

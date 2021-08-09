@@ -17,12 +17,10 @@ class HomeScreen extends StatelessWidget {
             Row(
               children: [
                 Consumer<ThemeViewModel>(
-                  builder: (context, themeManager, _) => IconButton(
+                  builder: (context, themeViewModel, _) => IconButton(
                     icon: Icon(Icons.nightlight_round),
                     onPressed: () {
-                      themeManager.getTheme() == themeManager.lightTheme
-                          ? themeManager.setDarkMode()
-                          : themeManager.setLightMode();
+                      themeViewModel.toggleMode();
                     },
                   ),
                 ),
