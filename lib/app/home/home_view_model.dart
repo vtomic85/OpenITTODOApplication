@@ -39,4 +39,10 @@ class HomeViewModel extends ChangeNotifier {
     todoRepository.upsertTodo(TodoItem(description, false));
     notifyListeners();
   }
+
+  @override
+  void dispose() {
+    newTodoController.dispose();
+    super.dispose();
+  }
 }
