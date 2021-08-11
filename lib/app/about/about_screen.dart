@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_tracker/about_row.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:todo_tracker/app/about/widgets/about_row.dart';
 
 class AboutPage extends StatelessWidget {
   @override
