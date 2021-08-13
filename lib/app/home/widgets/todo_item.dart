@@ -5,7 +5,7 @@ import '../home_view_model.dart';
 
 class TodoItem extends StatelessWidget {
   final int _index;
-  
+
   const TodoItem(this._index);
 
   @override
@@ -15,9 +15,14 @@ class TodoItem extends StatelessWidget {
         title: Text(
           viewModel.todoItems[_index].description,
           style: TextStyle(
-            color: viewModel.todoItems[_index].done ? Colors.white : Colors.blue,
-            decoration: viewModel.todoItems[_index].done ? TextDecoration.lineThrough : null,
-            fontWeight: viewModel.todoItems[_index].done ? FontWeight.normal : FontWeight.bold,
+            color:
+                viewModel.todoItems[_index].done ? Colors.white : Colors.blue,
+            decoration: viewModel.todoItems[_index].done
+                ? TextDecoration.lineThrough
+                : null,
+            fontWeight: viewModel.todoItems[_index].done
+                ? FontWeight.normal
+                : FontWeight.bold,
           ),
         ),
         onTap: () {
@@ -37,10 +42,13 @@ class TodoItem extends StatelessWidget {
                     'Really delete this item?',
                   ),
                   actions: <Widget>[
-                    new TextButton(onPressed: () => Navigator.of(context).pop(), child: new Text('Cancel')),
+                    new TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: new Text('Cancel')),
                     new TextButton(
                         onPressed: () {
-                          viewModel.deleteSingleItem(_index);
+                          viewModel
+                              .deleteSingleItem(viewModel.todoItems[_index].id);
                           Navigator.of(context).pop();
                         },
                         child: new Text(

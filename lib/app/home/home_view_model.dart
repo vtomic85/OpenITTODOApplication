@@ -25,8 +25,8 @@ class HomeViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void deleteSingleItem(int index) {
-    // todoItems.removeAt(index);
+  void deleteSingleItem(String id) {
+    todoRepository.deleteSingleTodo(id);
     notifyListeners();
   }
 
