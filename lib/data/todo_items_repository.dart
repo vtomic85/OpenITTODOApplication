@@ -26,8 +26,8 @@ class TodoItemsRepository {
     return TodoItem.fromJson(record);
   }
 
-  Future<void> deleteAll() async {
-    await _store.deleteAll();
+  Future<int> deleteAll() async {
+    return await _store.deleteAll();
   }
 
   Future<void> deleteSingleTodo(String id) async {

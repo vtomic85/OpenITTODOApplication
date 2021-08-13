@@ -10,7 +10,7 @@ class TodoItem {
   String description;
   bool done;
 
-  TodoItem(this.description, this.done) : id = Uuid().v1();
+  TodoItem(this.description, this.done, {String? id}) : this.id = id ?? Uuid().v1();
 
   factory TodoItem.fromJson(Map<String, dynamic> json) => _$TodoItemFromJson(json);
 

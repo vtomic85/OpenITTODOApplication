@@ -55,25 +55,12 @@ class SembastStore {
     });
   }
 
-  Future<List<Map<String, dynamic>>> repopulateStore(
-      {required List<String> ids,
-      required List<Map<String, dynamic>> records}) async {
-    final db = await _databaseConnection.db;
-    return db.transaction((transaction) async {
-      await _store.delete(transaction);
-      final keys = ids;
-      final storeRecords = _store.records(keys);
-      final result = await storeRecords.put(transaction, records);
-      return List.from(result);
-    });
-  }
-
   Future<void> deleteSingleItem(String id) async {
     final db = await _databaseConnection.db;
     return db.transaction((transaction) async {
       final key = id;
       final storeRecord = _store.record(key);
-      await storeRecord.delete(db);
+      await storeRecord.delete(transaction);
     });
   }
 
