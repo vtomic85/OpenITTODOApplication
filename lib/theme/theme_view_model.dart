@@ -24,7 +24,7 @@ class ThemeViewModel extends ChangeNotifier {
 
   late ThemeData _themeData;
 
-  ThemeData getTheme() => _themeData;
+  Future<ThemeData> getTheme() async => await _themeData;
 
   ThemeViewModel() {
     StorageManager.readData('themeMode').then((value) {

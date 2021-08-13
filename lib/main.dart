@@ -21,14 +21,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<ThemeViewModel>(
-      builder: (context, themeManager, _) => MaterialApp(
-        theme: themeManager.getTheme(),
-        routes: {
-          '/': (context) => HomeScreen(),
-          '/about': (context) => AboutPage(),
+      builder: (context, themeManager, _) => FutureBuilder<ThemeData>(
+        future: themeManager.getTheme(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return MyAppWithTheme(snapshot.data!);
+          } else {
+            return CircularProgressIndicator.adaptive();
+          }
         },
-        initialRoute: '/',
       ),
+    );
+  }
+}
+
+class MyAppWithTheme extends StatelessWidget {
+  final ThemeData data;
+
+  MyAppWithTheme(this.data);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: data,
+      routes: {
+        '/': (context) => HomeScreen(),
+        '/about': (context) => AboutPage(),
+      },
+      initialRoute: '/',
     );
   }
 }
