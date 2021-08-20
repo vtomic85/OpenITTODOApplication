@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todo_tracker/app/home/home_view_model.dart';
 import 'package:todo_tracker/app/home/widgets/confirmation_dialog.dart';
+import 'package:todo_tracker/app/home/widgets/new_todo.dart';
 import 'package:todo_tracker/app/home/widgets/todo_item.dart';
 import 'package:todo_tracker/theme/theme_view_model.dart';
 
@@ -38,21 +39,7 @@ class HomeScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Consumer<HomeViewModel>(
-              builder: (context, viewModel, child) =>
-                  TextField(controller: viewModel.newTodoController),
-            ),
-            Consumer<HomeViewModel>(
-              builder: (context, viewModel, child) => ElevatedButton(
-                onPressed: viewModel.newTodoController.text.isEmpty
-                    ? null
-                    : () {
-                        viewModel.insertItem(viewModel.newTodoController.text);
-                        viewModel.newTodoController.text = '';
-                      },
-                child: Text('Add TODO item'),
-              ),
-            ),
+            NewTodo(),
             Consumer<HomeViewModel>(
               builder: (context, viewModel, child) => ElevatedButton(
                 onPressed: () {
@@ -60,8 +47,7 @@ class HomeScreen extends StatelessWidget {
                     title: 'Are you sure you want to delete all items',
                     onConfirm: viewModel.deleteAllItems,
                     context: context,
-                    confirmationButtonStyle:
-                        TextStyle(color: Theme.of(context).errorColor),
+                    confirmationButtonStyle: TextStyle(color: Theme.of(context).errorColor),
                   );
                 },
                 child: Text(
@@ -74,15 +60,19 @@ class HomeScreen extends StatelessWidget {
                 builder: (context, viewModel, child) => ListView.builder(
                   itemCount: viewModel.todoItems.length,
                   itemBuilder: (context, index) {
-                    return Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0),
-                        child: TodoItem(index));
+                    return Padding(padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0), child: TodoItem(index));
                   },
                 ),
               ),
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showConfirmationDialog(title: 'New TODO', onConfirm: () {}, context: context, content: NewTodo());
+        },
+        child: const Icon(Icons.add),
       ),
     );
   }

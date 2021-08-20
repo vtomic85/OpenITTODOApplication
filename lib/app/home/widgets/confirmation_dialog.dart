@@ -4,6 +4,7 @@ showConfirmationDialog(
     {required String title,
     required Function onConfirm,
     required BuildContext context,
+    Widget? content,
     TextStyle? confirmationButtonStyle}) {
   showDialog(
     context: context,
@@ -12,6 +13,7 @@ showConfirmationDialog(
         title: new Text(
           title,
         ),
+        content: content,
         actions: <Widget>[
           new TextButton(
             onPressed: () => Navigator.of(context).pop(),
@@ -26,8 +28,7 @@ showConfirmationDialog(
             },
             child: new Text(
               'Confirm',
-              style: confirmationButtonStyle ??
-                  TextStyle(color: Theme.of(context).primaryColor),
+              style: confirmationButtonStyle ?? TextStyle(color: Theme.of(context).primaryColor),
             ),
           ),
         ],
