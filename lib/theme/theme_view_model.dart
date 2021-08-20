@@ -22,22 +22,20 @@ class ThemeViewModel extends ChangeNotifier {
     dividerColor: Colors.white54,
   );
 
-  late ThemeData _themeData;
+  ThemeData? _themeData;
 
-  ThemeData getTheme() => _themeData;
-
-  ThemeViewModel() {
-    StorageManager.readData('themeMode').then((value) {
-      print('value read from storage: ' + value.toString());
-      var themeMode = value ?? 'light';
+  Future<ThemeData> get theme async {
+    if (_themeData == null) {
+      final themeValue = await StorageManager.readData('themeMode');
+      var themeMode = themeValue ?? 'light';
       if (themeMode == 'light') {
         _themeData = lightTheme;
       } else {
-        print('setting dark theme');
         _themeData = darkTheme;
       }
-      notifyListeners();
-    });
+    }
+    await Future.delayed(const Duration(seconds: 1), () {});
+    return _themeData!;
   }
 
   void setDarkMode() async {

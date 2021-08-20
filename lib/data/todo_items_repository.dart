@@ -21,16 +21,16 @@ class TodoItemsRepository {
   }
 
   Future<TodoItem> upsertTodo(TodoItem todoItem) async {
-    final record = await _store.upsert(id: todoItem.id, record: todoItem.toJson());
+    final record =
+        await _store.upsert(id: todoItem.id, record: todoItem.toJson());
     return TodoItem.fromJson(record);
   }
 
-  Future<void> deleteAll() async {
-    await _store.deleteAll();
+  Future<int> deleteAll() async {
+    return await _store.deleteAll();
   }
 
-  Future<TodoItem> deleteSingleTodo(String id) async {
-    // TODO
-    return Future.value(TodoItem('sda', false));
+  Future<void> deleteSingleTodo(String id) async {
+    await _store.deleteSingleItem(id);
   }
 }
