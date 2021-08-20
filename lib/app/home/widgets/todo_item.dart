@@ -14,16 +14,12 @@ class TodoItem extends StatelessWidget {
       return ListTile(
         title: Text(
           viewModel.todoItems[_index].description,
-          style: TextStyle(
-            color:
-                viewModel.todoItems[_index].done ? Colors.white : Colors.blue,
-            decoration: viewModel.todoItems[_index].done
-                ? TextDecoration.lineThrough
-                : null,
-            fontWeight: viewModel.todoItems[_index].done
-                ? FontWeight.normal
-                : FontWeight.bold,
-          ),
+          style: viewModel.todoItems[_index].done
+              ? Theme.of(context).textTheme.bodyText1?.copyWith(
+                    decoration: TextDecoration.lineThrough,
+                    color: Theme.of(context).disabledColor,
+                  )
+              : Theme.of(context).textTheme.bodyText1,
         ),
         onTap: () {
           viewModel.updateItem(_index);
@@ -31,7 +27,7 @@ class TodoItem extends StatelessWidget {
         trailing: IconButton(
           icon: Icon(
             Icons.delete,
-            color: Colors.red,
+            color: Theme.of(context).errorColor,
           ),
           onPressed: () {
             showDialog(

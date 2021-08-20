@@ -21,7 +21,9 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void updateItem(int index) {
-    //todoItems[index].done = !todoItems[index].done;
+    final todoItem = todoItems[index];
+    todoItem.done = !todoItem.done;
+    todoRepository.upsertTodo(todoItem);
     notifyListeners();
   }
 

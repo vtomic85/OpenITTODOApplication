@@ -14,10 +14,10 @@ class ThemeViewModel extends ChangeNotifier {
 
   final lightTheme = ThemeData(
     primarySwatch: Colors.grey,
-    primaryColor: Colors.white,
+    primaryColor: Colors.blue,
     brightness: Brightness.light,
     backgroundColor: const Color(0xFFE5E5E5),
-    accentColor: Colors.black,
+    accentColor: Colors.grey,
     accentIconTheme: IconThemeData(color: Colors.white),
     dividerColor: Colors.white54,
   );
