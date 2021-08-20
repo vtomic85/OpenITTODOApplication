@@ -57,9 +57,12 @@ class HomeScreen extends StatelessWidget {
               builder: (context, viewModel, child) => ElevatedButton(
                 onPressed: () {
                   showConfirmationDialog(
-                      'Are you sure you want to delete all items',
-                      viewModel.deleteAllItems,
-                      context);
+                    title: 'Are you sure you want to delete all items',
+                    onConfirm: viewModel.deleteAllItems,
+                    context: context,
+                    confirmationButtonStyle:
+                        TextStyle(color: Theme.of(context).errorColor),
+                  );
                 },
                 child: Text(
                   'Delete all',

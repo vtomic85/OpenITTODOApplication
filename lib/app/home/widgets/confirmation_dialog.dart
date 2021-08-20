@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
-showConfirmationDialog(String title, Function onConfirm, BuildContext context) {
+showConfirmationDialog(
+    {required String title,
+    required Function onConfirm,
+    required BuildContext context,
+    TextStyle? confirmationButtonStyle}) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -9,15 +13,23 @@ showConfirmationDialog(String title, Function onConfirm, BuildContext context) {
           title,
         ),
         actions: <Widget>[
-          new TextButton(onPressed: () => Navigator.of(context).pop(), child: new Text('Cancel')),
           new TextButton(
-              onPressed: () {
-                onConfirm();
-                Navigator.of(context).pop();
-              },
-              child: new Text(
-                'Confirm',
-              )),
+            onPressed: () => Navigator.of(context).pop(),
+            child: new Text(
+              'Cancel',
+            ),
+          ),
+          new TextButton(
+            onPressed: () {
+              onConfirm();
+              Navigator.of(context).pop();
+            },
+            child: new Text(
+              'Confirm',
+              style: confirmationButtonStyle ??
+                  TextStyle(color: Theme.of(context).primaryColor),
+            ),
+          ),
         ],
       );
     },
