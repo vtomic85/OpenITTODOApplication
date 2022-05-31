@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:new_app/data/todo_item.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,11 +26,12 @@ class HomeScreen extends StatelessWidget {
               ),
               Expanded(
                 child: ListView.builder(
-                  itemCount: 300,
+                  itemCount: mockTodos.length,
                   itemBuilder: (context, index) {
-                    return const Padding(
-                        padding: EdgeInsets.fromLTRB(0, 1.0, 0, 0),
-                        child: Text("TodoItem(index)"));
+                    return Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0),
+                        child: Text(mockTodos[index].description)
+                    );
                   },
                 ),
               ),
