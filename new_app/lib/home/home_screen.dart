@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:new_app/data/todo_item.dart';
+import 'package:new_app/home/home_view_model.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,14 +26,16 @@ class HomeScreen extends StatelessWidget {
                 child: Text('Add TODO item'),
               ),
               Expanded(
-                child: ListView.builder(
-                  itemCount: mockTodos.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0),
-                        child: Text(mockTodos[index].description)
-                    );
-                  },
+                child: Consumer<HomeViewModel>(
+                  builder: (context, model, __) => ListView.builder(
+                    itemCount: model.todoItems.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0),
+                          child: Text(model.todoItems[index].description)
+                      );
+                    },
+                  ),
                 ),
               ),
             ],
