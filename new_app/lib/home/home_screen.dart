@@ -28,14 +28,21 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: model.todoItems.length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0),
-                            child: Text(model.todoItems[index].description)
-                        );
-                      },
-                    ),
+                    itemCount: model.todoItems.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 1.0, 0, 0),
+                          child: Row(
+                            children: [
+                              Text(model.todoItems[index].description),
+                              OutlinedButton(
+                                  onPressed: () => model
+                                      .removeTodo(model.todoItems[index].id),
+                                  child: const Icon(Icons.delete, color: Colors.red,))
+                            ],
+                          ));
+                    },
+                  ),
                 ),
               ],
             ),
