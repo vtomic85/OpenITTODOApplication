@@ -23,4 +23,8 @@ class HomeViewModel with ChangeNotifier {
   void removeTodo(String id) {
     _todoRepository.deleteSingleTodo(id);
   }
+
+  void removeAllTodos() {
+    _todoRepository.deleteAll();
+  }
 }

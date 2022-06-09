@@ -17,6 +17,17 @@ class HomeScreen extends StatelessWidget {
             // Here we take the value from the MyHomePage object that was created by
             // the App.build method, and use it to set our appbar title.
             title: const Text('TODO'),
+            actions: [
+              Consumer<HomeViewModel>(
+                builder: (context, model, child) => OutlinedButton(
+                  onPressed: model.removeAllTodos,
+                  child: Text(
+                    "Delete EVERYTHING",
+                  ),
+                  style: OutlinedButton.styleFrom(backgroundColor: Colors.yellow),
+                ),
+              )
+            ],
           ),
           body: Consumer<HomeViewModel>(
             builder: (context, model, child) => Column(
@@ -38,7 +49,10 @@ class HomeScreen extends StatelessWidget {
                               OutlinedButton(
                                   onPressed: () => model
                                       .removeTodo(model.todoItems[index].id),
-                                  child: const Icon(Icons.delete, color: Colors.red,))
+                                  child: const Icon(
+                                    Icons.delete,
+                                    color: Colors.red,
+                                  ))
                             ],
                           ));
                     },
